@@ -1,0 +1,34 @@
+<?php /** @var Magento\Framework\View\Element\Template $block */?>
+<form class="form"
+      action="<?= $block->escapeUrl($block->getUrl('credit/customer/form')) ?>"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      autocomplete="off">
+
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Credit Information')) ?></span></legend><br>
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('Credit limit')) ?></span>
+
+            </label>
+            <input type="text" placeholder="1 000 000" name="credit_limit">
+        </div>
+
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('Upload file')) ?></span>
+            </label>
+            <input class="file-uploader " type="file" id="myFile" name="file">
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>">
+                    <span><?= $block->escapeHtml(__('Save')) ?></span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
