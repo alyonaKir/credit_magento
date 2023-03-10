@@ -1,15 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace AlyonaKir\Credit\Model;
+namespace AlyonaKir\Credit\Model\Credit;
 
 use AlyonaKir\Credit\Api\CreditRepositoryInterface;
-use AlyonaKir\Credit\Model\ResourceModel\Credit\CollectionFactory;
-use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit as CreditResource;
 use AlyonaKir\Credit\Api\CreditSearchResultInterface;
 use AlyonaKir\Credit\Api\Data\CreditInterface;
+use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit as CreditResource;
+use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
 
@@ -24,15 +25,15 @@ class CreditRepository implements CreditRepositoryInterface
     /**
      * @param CollectionFactory $collectionFactory
      * @param CreditResource $creditResource
-     * @param \AlyonaKir\Credit\Model\CreditFactory $creditFactory
+     * @param CreditFactory $creditFactory
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param \AlyonaKir\Credit\Model\CreditSearchResultFactory $searchResultFactory
+     * @param CreditSearchResultFactory $searchResultFactory
      */
     public function __construct(
-        CollectionFactory $collectionFactory,
-        CreditResource $creditResource,
-        CreditFactory $creditFactory,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
+        CollectionFactory         $collectionFactory,
+        CreditResource            $creditResource,
+        CreditFactory             $creditFactory,
+        SearchCriteriaBuilder     $searchCriteriaBuilder,
         CreditSearchResultFactory $searchResultFactory
     )
     {
@@ -52,7 +53,7 @@ class CreditRepository implements CreditRepositoryInterface
     {
         $object = $this->creditFactory->create();
         $this->creditResource->load($object, $id);
-        if (! $object->getId()) {
+        if (!$object->getId()) {
             throw new NoSuchEntityException(__('Unable to find entity with ID "%1"', $id));
         }
         return $object;
@@ -97,15 +98,11 @@ class CreditRepository implements CreditRepositoryInterface
     /**
      * @param CreditInterface $credit
      * @return CreditInterface
-     * @throws StateException
+     * @throws AlreadyExistsException
      */
     public function save(CreditInterface $credit): CreditInterface
     {
-        try {
-            $this->creditResource->save($credit);
-        } catch (\Exception $e) {
-            throw new StateException(__('Unable to save entity #%1', $credit->getId()));
-        }
+        $this->creditResource->save($credit);
         return $credit;
     }
 

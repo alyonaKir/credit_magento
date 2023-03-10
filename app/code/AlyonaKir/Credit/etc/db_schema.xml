@@ -2,7 +2,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="credit" resource="default" engine="innodb" comment="Credit info">
-        <column xsi:type="smallint" name="credit_id" unsigned="true" nullable="false" identity="true"
+        <column xsi:type="int" name="credit_id" unsigned="true" nullable="false" identity="true"
                 comment="Credit ID"/>
         <column xsi:type="int" name="credit_limit" nullable="false" comment="Credit limit field"/>
         <column xsi:type="int" name="lock_credit_limit" nullable="false" default="0" comment="Lock Credit Limit"/>
@@ -10,7 +10,7 @@
                 default="0" comment="Credit available field "/>
         <column xsi:type="smallint" name="purchase_status" unsigned="true" nullable="false"
                 identity="false" default="0" comment="Purchase Status "/>
-        <column xsi:type="blob" name="file" nullable="false" comment="Uploaded file "/>
+        <column xsi:type="varchar" name="file" length="50" nullable="false" comment="Uploaded file "/>
         <column xsi:type="date" name="date_of_response" nullable="true" comment="Date of response"/>
         <column xsi:type="date" name="allowable_purchase_time" nullable="false" comment="Allowable purchase time"/>
         <column xsi:type="varchar" name="reason" length="1000" nullable="false" comment="Reason"/>

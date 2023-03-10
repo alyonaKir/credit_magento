@@ -1,27 +1,45 @@
 <?php
 declare(strict_types=1);
 
-namespace AlyonaKir\Credit\Model;
+namespace AlyonaKir\Credit\Model\Credit;
 
 use AlyonaKir\Credit\Api\Data\CreditInterface;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Tests\NamingConvention\true\string;
 
 class Credit extends AbstractModel implements CreditInterface
 {
+
+    const CACHE_TAG = 'credit';
+
+    protected $_cacheTag = 'credit';
+
+    protected $_eventPrefix = 'credit';
+
     protected function _construct()
     {
         $this->_init('AlyonaKir\Credit\Model\ResourceModel\Credit\Credit');
     }
 
-    public function getId(): int
+    public function getIdentities(): array
     {
-        return $this->getData(CreditInterface::ID);
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    public function setId(mixed $value): void
+    public function getDefaultValues(): array
     {
-        $this->setData(CreditInterface::ID, $value);
+        $values = [];
+
+        return $values;
+    }
+
+    public function getCreditId(): int
+    {
+        return $this->getData(CreditInterface::CREDIT_ID);
+    }
+
+    public function setCreditId(int $creditId): void
+    {
+        $this->setData(CreditInterface::CREDIT_ID, $creditId);
     }
 
     public function getCreditLimit(): int
@@ -123,6 +141,4 @@ class Credit extends AbstractModel implements CreditInterface
     {
         $this->setData(CreditInterface::CREATED_AT, $createdAt);
     }
-
-
 }
