@@ -16,16 +16,12 @@ interface CreditRepositoryInterface
      */
     public function getById(int $id): CreditInterface;
 
-    /**
-     * @return CreditSearchResultInterface
-     */
-    public function get(): CreditSearchResultInterface;
 
     /**
      * @param SearchCriteriaInterface|null $searchCriteria
-     * @return CreditSearchResultInterface
+     * @return CreditInterface[]
      */
-    public function getList(SearchCriteriaInterface $searchCriteria = null): CreditSearchResultInterface;
+    public function getList(SearchCriteriaInterface $searchCriteria = null): array;
 
     /**
      * @param CreditInterface $credit

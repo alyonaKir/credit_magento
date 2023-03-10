@@ -59,20 +59,12 @@ class CreditRepository implements CreditRepositoryInterface
         return $object;
     }
 
-    /**
-     * @return CreditSearchResultInterface
-     */
-    public function get(): CreditSearchResultInterface
-    {
-        $searchCriteria = $this->searchCriteriaBuilder->create();
-        return $this->getList($searchCriteria);
-    }
 
     /**
      * @param SearchCriteriaInterface|null $searchCriteria
-     * @return CreditSearchResultInterface
+     * @return CreditInterface[]
      */
-    public function getList(SearchCriteriaInterface $searchCriteria = null): CreditSearchResultInterface
+    public function getList(SearchCriteriaInterface $searchCriteria = null):array
     {
         $collection = $this->collectionFactory->create();
         $searchCriteria = $this->searchCriteriaBuilder->create();
@@ -92,7 +84,7 @@ class CreditRepository implements CreditRepositoryInterface
         $searchResult->setItems($collection->getItems());
         $searchResult->setTotalCount($collection->getSize());
         $searchResult->setSearchCriteria($searchCriteria);
-        return $searchResult;
+        return $searchResult->getItems();
     }
 
     /**

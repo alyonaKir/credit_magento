@@ -34,12 +34,13 @@ class Form extends \Magento\Framework\App\Action\Action
         if (isset($_POST['file']) && isset($_POST['credit_limit'])) {
             $credit = $this->creditFactory->create();
             try {
-                $creditdata = [
+                $creditData = [
                     'credit_limit' => $_POST['credit_limit'],
                     'file' => $_POST['file']
                 ];
-                $credit->setData($creditdata);
+                $credit->setData($creditData);
                 $creditRepository->save($credit);
+
             } catch (\Exception $ex) {
                 $this->messageManager->addErrorMessage("Something went wrong");
             }
