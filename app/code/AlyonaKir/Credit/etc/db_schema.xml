@@ -18,7 +18,7 @@
                 comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Update Time"/>
-
+        <column xsi:type="int" name="user_id" unsigned="true" nullable="false" comment="User ID"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="credit_id"/>
         </constraint>

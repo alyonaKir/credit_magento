@@ -5,6 +5,7 @@ namespace AlyonaKir\Credit\Api;
 
 use AlyonaKir\Credit\Api\CreditSearchResultInterface;
 use AlyonaKir\Credit\Api\Data\CreditInterface;
+use AlyonaKir\Credit\Model\Credit\CreditSearchResult;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 interface CreditRepositoryInterface

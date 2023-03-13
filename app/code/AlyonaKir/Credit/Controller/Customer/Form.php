@@ -30,24 +30,39 @@ class Form extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $creditRepository = $this->creditRepositoryFactory->create();
-        if (isset($_POST['file']) && isset($_POST['credit_limit'])) {
-            $credit = $this->creditFactory->create();
-            try {
-                $creditData = [
-                    'credit_limit' => $_POST['credit_limit'],
-                    'file' => $_POST['file']
-                ];
-                $credit->setData($creditData);
-                $creditRepository->save($credit);
+        $this->saveData();
+        return $this->_pageFactory->create();
+    }
 
+    private function saveData():void
+    {
+        $creditRepository = $this->creditRepositoryFactory->create();
+        if (isset($_FILES['file']) && isset($_POST['credit_limit'])) {
+            try {
+                $credit = $this->creditFactory->create();
+                $flag = 0;
+                if ($_FILES['file']['type'] == 'application/pdf') {
+                    $uploaddir = $_SERVER['DOCUMENT_ROOT'] . "/upload/";
+                    $uploadfile = $uploaddir . basename($_FILES['file']['name']);
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+                        $flag = 1;
+                    }
+                    $creditData = [
+                        'credit_limit' => $_POST['credit_limit'],
+                        'file' => ($flag) ? $uploadfile : "no file",
+                        'user_id' => $_SESSION['customer_base']['customer_id']
+                    ];
+                    $credit->setData($creditData);
+                    $creditRepository->save($credit);
+                } else {
+                    $this->messageManager->addErrorMessage("Wrong file type");
+                    return;
+                }
             } catch (\Exception $ex) {
                 $this->messageManager->addErrorMessage("Something went wrong");
             }
             $this->messageManager->addSuccessMessage("The request will be processed in three days.");
         }
-
-        return $this->_pageFactory->create();
     }
 }
 

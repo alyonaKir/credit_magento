@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="credit_creditinfo_listing_data_source" xsi:type="string">
+                    AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">credit</argument>
+            <argument name="resourceModel" xsi:type="string">AlyonaKir\Credit\Model\ResourceModel\Credit\Credit
+            </argument>
+        </arguments>
+    </virtualType>
+
+</config>

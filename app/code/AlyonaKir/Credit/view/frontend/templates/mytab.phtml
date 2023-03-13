@@ -2,8 +2,7 @@
 <form class="form"
       action="<?= $block->escapeUrl($block->getUrl('credit/customer/form')) ?>"
       method="post"
-      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
-      autocomplete="off">
+      enctype="multipart/form-data" >
 
     <fieldset class="fieldset info">
         <legend class="legend"><span><?= $block->escapeHtml(__('Credit Information')) ?></span></legend><br>
@@ -21,7 +20,8 @@
             <label class="label">
                 <span><?= $block->escapeHtml(__('Upload file')) ?></span>
             </label>
-            <input class="file-uploader " type="file" id="myFile" name="file">
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+            <input class="file-uploader " type="file" id="file" name="file" value="">
         </div>
         <div class="actions-toolbar">
             <div class="primary">

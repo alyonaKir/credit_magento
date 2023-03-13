@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="AlyonaKir_Credit::module"
+             title="Credit Info"
+             module="AlyonaKir_Credit"
+             sortOrder="1"
+             resource="Magento_Backend::content"/>
+        <add id="Alyona_PostEAV::post"
+             title="Applicants"
+             module="AlyonaKir_Credit"
+             sortOrder="1"
+             action="credit/info"
+             parent="AlyonaKir_Credit::module"
+             resource="Magento_Backend::content"/>
+
+    </menu>
+</config>

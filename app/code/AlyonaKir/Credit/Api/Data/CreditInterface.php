@@ -18,9 +18,14 @@ interface CreditInterface
     const UPDATED_AT = 'updated_at';
     const CREATED_AT = 'created_at';
 
+    const USER_ID = 'user_id';
     public function getCreditId(): int;
 
     public function setCreditId(int $creditId): void;
+
+    public function getUserId(): int;
+
+    public function setUserId(int $userId): void;
 
     public function getCreditLimit(): int;
 
