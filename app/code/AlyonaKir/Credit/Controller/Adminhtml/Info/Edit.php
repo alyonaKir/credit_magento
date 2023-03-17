@@ -1,18 +1,22 @@
 <?php
+declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
+
 use Magento\Backend\App\Action\Context;
 use AlyonaKir\Credit\Model\Credit\CreditFactory;
+use Magento\Framework\Registry;
+
 class Edit extends \Magento\Backend\App\Action
 {
     protected $_coreRegistry = null;
     protected $_publicActions = ['edit'];
 
-    private $creditFactory;
+    private CreditFactory $creditFactory;
 
     public function __construct(
-        Context $context,
-        \Magento\Framework\Registry $coreRegistry,
+        Context       $context,
+        Registry      $coreRegistry,
         CreditFactory $creditFactory
     )
     {
@@ -21,7 +25,7 @@ class Edit extends \Magento\Backend\App\Action
         parent::__construct($context);
     }
 
-    public function execute()
+    public function execute(): void
     {
         $_publicActions = ['edit'];
         $FromModel = $this->_objectManager->create('AlyonaKir\Credit\Model\Credit\Credit');
@@ -54,7 +58,7 @@ class Edit extends \Magento\Backend\App\Action
         }
 
         $this->_session->start();
-        $_SESSION['id']= $FormId;
+        $_SESSION['id'] = $FormId;
         $this->_view->renderLayout();
     }
 }

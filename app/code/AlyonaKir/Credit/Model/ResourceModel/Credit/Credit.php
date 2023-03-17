@@ -13,7 +13,7 @@ class Credit extends AbstractDb
         parent::__construct($context);
     }
 
-    protected function _construct()
+    protected function _construct():void
     {
         $this->_init('credit', 'credit_id');
     }

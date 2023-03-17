@@ -1,25 +1,21 @@
 <?php
-
+declare(strict_types=1);
 namespace AlyonaKir\Credit\Block\Adminhtml\Buttons;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
-class SendEmail extends Generic implements ButtonProviderInterface
+class Send extends Generic implements ButtonProviderInterface
 {
 
-    public function getSaveUrl()
+    public function getSendUrl():string
     {
         $id = $this->getEntityId();
         return $this->getUrl('*/*/send', ['id' => $id]);
     }
-    public function getButtonData()
+    public function getButtonData():array
     {
         return [
             'label' => __('Send email'),
-            'data_attribute' => [
-                'mage-init' => ['button' => ['event' => 'save']],
-                'form-role' => 'save',
-            ],
             'sort_order' => 90,
         ];
     }

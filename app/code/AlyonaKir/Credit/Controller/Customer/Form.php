@@ -5,21 +5,24 @@ namespace AlyonaKir\Credit\Controller\Customer;
 
 use AlyonaKir\Credit\Model\Credit\CreditFactory;
 use AlyonaKir\Credit\Model\Credit\CreditRepositoryFactory;
+use Magento\Framework\View\Result\Page;
+use \Magento\Framework\App\Action\Action;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\App\Action\Context;
 
-
-class Form extends \Magento\Framework\App\Action\Action
+class Form extends Action
 {
 
-    protected $_pageFactory;
-    protected $creditFactory;
+    protected PageFactory $_pageFactory;
+    protected CreditFactory $creditFactory;
 
-    protected $creditRepositoryFactory;
+    protected CreditRepositoryFactory $creditRepositoryFactory;
 
     public function __construct(
-        \Magento\Framework\App\Action\Context      $context,
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
-        CreditFactory                              $creditFactory,
-        CreditRepositoryFactory                    $creditRepositoryFactory
+        Context                 $context,
+        PageFactory             $pageFactory,
+        CreditFactory           $creditFactory,
+        CreditRepositoryFactory $creditRepositoryFactory
     )
     {
         $this->creditFactory = $creditFactory;
@@ -28,13 +31,13 @@ class Form extends \Magento\Framework\App\Action\Action
         return parent::__construct($context);
     }
 
-    public function execute()
+    public function execute(): Page
     {
         $this->saveData();
         return $this->_pageFactory->create();
     }
 
-    private function saveData():void
+    private function saveData(): void
     {
         $creditRepository = $this->creditRepositoryFactory->create();
         if (isset($_FILES['file']) && isset($_POST['credit_limit'])) {

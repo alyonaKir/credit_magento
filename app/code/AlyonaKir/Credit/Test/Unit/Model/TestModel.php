@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 
-use AlyonaKir\Credit\Model\Credit;
+namespace AlyonaKir\Credit\Test\Unit\Model;
+
 use PHPUnit\Framework\TestCase;
+use AlyonaKir\Credit\Model\Credit\Credit;
 
 /**
  * @covers \AlyonaKir\Credit\Model\Credit\Credit
@@ -14,7 +17,7 @@ class TestModel extends TestCase
     protected function setUp(): void
     {
         $this->_objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
-        $this->_model = $this->_objectManager->getObject(AlyonaKir\Credit\Model\Credit\Credit::class);
+        $this->_model = $this->_objectManager->getObject(Credit::class);
     }
 
     /** @test */
@@ -98,7 +101,7 @@ class TestModel extends TestCase
     public function testSetCreditId()
     {
         $this->_model->setCreditId(1);
-        $result =  $this->_model->getCreditId();
+        $result = $this->_model->getCreditId();
         $this->_model->setCreditId(2);
         $this->assertNotEquals($result, $this->_model->getCreditId());
     }
@@ -107,7 +110,7 @@ class TestModel extends TestCase
     public function testSetCreditLimit()
     {
         $this->_model->setCreditLimit(1);
-        $result =  $this->_model->getCreditLimit();
+        $result = $this->_model->getCreditLimit();
         $this->_model->setCreditLimit(2);
         $this->assertNotEquals($result, $this->_model->getCreditLimit());
     }
@@ -115,7 +118,7 @@ class TestModel extends TestCase
     public function testSetLockCreditLimit()
     {
         $this->_model->setLockCreditLimit(1);
-        $result =  $this->_model->getLockCreditLimit();
+        $result = $this->_model->getLockCreditLimit();
         $this->_model->setLockCreditLimit(2);
         $this->assertNotEquals($result, $this->_model->getLockCreditLimit());
     }
@@ -124,7 +127,7 @@ class TestModel extends TestCase
     public function testSetCreditAvailable()
     {
         $this->_model->setCreditAvailable(1);
-        $result =  $this->_model->getCreditAvailable();
+        $result = $this->_model->getCreditAvailable();
         $this->_model->setCreditAvailable(2);
         $this->assertNotEquals($result, $this->_model->getCreditAvailable());
     }
@@ -133,7 +136,7 @@ class TestModel extends TestCase
     public function testSetPurchaseStatus()
     {
         $this->_model->setPurchaseStatus(1);
-        $result =  $this->_model->getPurchaseStatus();
+        $result = $this->_model->getPurchaseStatus();
         $this->_model->setPurchaseStatus(2);
         $this->assertNotEquals($result, $this->_model->getPurchaseStatus());
     }
@@ -142,7 +145,7 @@ class TestModel extends TestCase
     public function testSetFile()
     {
         $this->_model->setFile("file");
-        $result =  $this->_model->getFile();
+        $result = $this->_model->getFile();
         $this->_model->setFile("new file");
         $this->assertNotEquals($result, $this->_model->getFile());
     }
@@ -151,7 +154,7 @@ class TestModel extends TestCase
     public function testSetDateOfResponse()
     {
         $this->_model->setDateOfResponse("2020-10-21");
-        $result =  $this->_model->getDateOfResponse();
+        $result = $this->_model->getDateOfResponse();
         $this->_model->setDateOfResponse("2020-10-22");
         $this->assertNotEquals($result, $this->_model->getDateOfResponse());
     }
@@ -160,7 +163,7 @@ class TestModel extends TestCase
     public function testSetAllowablePurchaseTime()
     {
         $this->_model->setAllowablePurchaseTime("2020-10-21");
-        $result =  $this->_model->getAllowablePurchaseTime();
+        $result = $this->_model->getAllowablePurchaseTime();
         $this->_model->setAllowablePurchaseTime("2020-10-22");
         $this->assertNotEquals($result, $this->_model->getAllowablePurchaseTime());
     }
@@ -169,7 +172,7 @@ class TestModel extends TestCase
     public function testSetReason()
     {
         $this->_model->setReason("reason");
-        $result =  $this->_model->getReason();
+        $result = $this->_model->getReason();
         $this->_model->setReason("new reason");
         $this->assertNotEquals($result, $this->_model->getReason());
     }
@@ -178,7 +181,7 @@ class TestModel extends TestCase
     public function testSetCreatedAt()
     {
         $this->_model->setCreatedAt("2020-10-21");
-        $result =  $this->_model->getCreatedAt();
+        $result = $this->_model->getCreatedAt();
         $this->_model->setCreatedAt("2020-10-22");
         $this->assertNotEquals($result, $this->_model->getCreatedAt());
     }
@@ -187,7 +190,7 @@ class TestModel extends TestCase
     public function testSetUpdatedAt()
     {
         $this->_model->setUpdatedAt("2020-10-21");
-        $result =  $this->_model->getUpdatedAt();
+        $result = $this->_model->getUpdatedAt();
         $this->_model->setUpdatedAt("2020-10-22");
         $this->assertNotEquals($result, $this->_model->getUpdatedAt());
     }

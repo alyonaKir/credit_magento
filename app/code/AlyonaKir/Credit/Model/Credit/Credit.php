@@ -34,7 +34,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getCreditId(): int
     {
-        return $this->getData(CreditInterface::CREDIT_ID);
+        return (int)$this->getData(CreditInterface::CREDIT_ID);
     }
 
     public function setCreditId(int $creditId): void
@@ -44,7 +44,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getCreditLimit(): int
     {
-        return $this->getData(CreditInterface::CREDIT_LIMIT);
+        return (int)$this->getData(CreditInterface::CREDIT_LIMIT);
     }
 
     public function setCreditLimit(int $creditLimit): void
@@ -54,7 +54,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getLockCreditLimit(): int
     {
-        return $this->getData(CreditInterface::LOCK_CREDIT_LIMIT);
+        return (int)$this->getData(CreditInterface::LOCK_CREDIT_LIMIT);
     }
 
     public function setLockCreditLimit(int $lockCreditLimit): void
@@ -64,7 +64,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getCreditAvailable(): int
     {
-        return $this->getData(CreditInterface::CREDIT_AVAILABLE);
+        return (int)$this->getData(CreditInterface::CREDIT_AVAILABLE);
     }
 
     public function setCreditAvailable(int $creditAvailable): void
@@ -74,7 +74,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getPurchaseStatus(): int
     {
-        return $this->getData(CreditInterface::PURCHASE_STATUS);
+        return (int)$this->getData(CreditInterface::PURCHASE_STATUS);
     }
 
     public function setPurchaseStatus(int $purchaseStatus): void
@@ -144,7 +144,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     public function getUserId(): int
     {
-        return $this->getData(CreditInterface::USER_ID);
+        return (int)$this->getData(CreditInterface::USER_ID);
     }
 
     public function setUserId(int $userId): void

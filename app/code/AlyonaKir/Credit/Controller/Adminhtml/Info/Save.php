@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
 
@@ -6,27 +7,27 @@ use Magento\Backend\App\Action\Context;
 use AlyonaKir\Credit\Model\Credit\Credit;
 use AlyonaKir\Credit\Model\Credit\CreditFactory;
 use AlyonaKir\Credit\Model\Credit\CreditRepository;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Backend\App\Action;
 
-class Save extends \Magento\Backend\App\Action
+class Save extends Action
 {
-    protected $request;
     protected $resultRedirectFactory;
 
-    protected $date;
-    protected $_publicActions;
-    protected $creditFactory;
-    protected $creditRepository;
+    protected DateTime $date;
+
+    protected CreditFactory $creditFactory;
+    protected CreditRepository $creditRepository;
 
     public function __construct(
-        Context                                     $context,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Backend\Model\UrlInterface         $urlBuilder,
-        CreditFactory                               $creditFactory,
-        CreditRepository                            $creditRepository
+        Context          $context,
+        DateTime         $date,
+        CreditFactory    $creditFactory,
+        CreditRepository $creditRepository
     )
     {
         $this->date = $date;
-        $this->urlBuilder = $urlBuilder;
         $this->creditFactory = $creditFactory;
         $this->creditRepository = $creditRepository;
         parent::__construct($context);
@@ -34,7 +35,6 @@ class Save extends \Magento\Backend\App\Action
 
     public function execute()
     {
-        $_publicActions = ['save'];
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         $id = "";
@@ -45,6 +45,7 @@ class Save extends \Magento\Backend\App\Action
             $date = $this->date->gmtDate();
             $credit = $this->creditFactory->create();
             $filepath = $this->creditRepository->getById((int)$id)->getFile();
+            $user_id = $this->creditRepository->getById((int)$id)->getUserId();
 
             $postdata = [
                 'credit_limit' => $data['credit_fieldset']['credit_limit'],
@@ -55,11 +56,12 @@ class Save extends \Magento\Backend\App\Action
                 'allowable_purchase_time' => $data['credit_fieldset']['allowable_purchase_time'],
                 'reason' => $data['credit_fieldset']['reason'],
                 'file' => $filepath,
-                'updated_at' => $date
+                'updated_at' => $date,
+                'user_id' => $user_id
             ];
-                $credit->setData($postdata);
-                $this->creditRepository->save($credit);
-                $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));
+            $credit->setData($postdata);
+            $this->creditRepository->save($credit);
+            $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));
 
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__('Try again.'));

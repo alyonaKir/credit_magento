@@ -16,8 +16,14 @@
                 <item name="class" xsi:type="string">back</item>
                 <item name="url" xsi:type="string">*/*/index</item>
             </item>
+            <item name="send" xsi:type="array">
+                <item name="name" xsi:type="string">Send</item>
+                <item name="label" xsi:type="string" translate="true">Send Email</item>
+                <item name="url" xsi:type="string">*/*/send</item>
+            </item>
+
             <item name="save" xsi:type="string">AlyonaKir\Credit\Block\Adminhtml\Buttons\Save</item>
-            <item name="send_email" xsi:type="string">AlyonaKir\Credit\Block\Adminhtml\Buttons\SendEmail</item>
+            <!--            <item name="send" xsi:type="string">AlyonaKir\Credit\Block\Adminhtml\Buttons\Send</item>-->
         </item>
     </argument>
 

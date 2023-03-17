@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace AlyonaKir\Credit\Test\Unit\Model;
+
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use PHPUnit\Framework\TestCase;
 use \PHPUnit\Framework\MockObject\MockObject;
-
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit as CreditResource;
@@ -24,23 +25,22 @@ use AlyonaKir\Credit\Model\Credit\CreditRepository;
 class TestRepository extends TestCase
 {
 
-    protected $object;
+    protected CreditRepository|MockObject $object;
 
 
-    private $collectionFactory;
+    private CollectionFactory|MockObject $collectionFactory;
 
-    private $creditResource;
-
-
-    private $creditFactory;
+    private CreditResource|MockObject $creditResource;
 
 
-    private $searchCriteriaBuilder;
+    private CreditFactory|MockObject $creditFactory;
 
-    private $searchResultFactory;
 
-    private $credit;
-    private $collectionProcessor;
+    private SearchCriteriaBuilder|MockObject $searchCriteriaBuilder;
+
+    private CreditSearchResultFactory|MockObject $searchResultFactory;
+
+    private Credit|MockObject $credit;
 
     protected function setUp(): void
     {
@@ -67,9 +67,6 @@ class TestRepository extends TestCase
             CreditSearchResultFactory::class,
             ['create']
         );
-
-        $this->collectionProcessor = $this->getMockBuilder(CollectionProcessorInterface::class)
-            ->getMock();
 
         $this->credit = $this->getMockBuilder(Credit::class)
             ->disableOriginalConstructor()
@@ -143,7 +140,6 @@ class TestRepository extends TestCase
 
         $this->assertEquals($creditMock, $this->object->getById($creditId));
     }
-
 
 
     /** @test */

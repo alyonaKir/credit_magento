@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace AlyonaKir\Credit\Block\Adminhtml\Buttons;
 
 use Magento\Backend\Block\Widget\Context;
@@ -15,7 +15,7 @@ class Generic
         $this->context = $context;
     }
 
-    public function getEntityId()
+    public function getEntityId():?int
     {
         try {
             return $this->context->getRequest()->getParam('credit_id');
@@ -24,7 +24,7 @@ class Generic
         }
     }
 
-    public function getUrl($route = '', $params = [])
+    public function getUrl($route = '', $params = []): string
     {
         return $this->context->getUrlBuilder()->getUrl($route, $params);
     }
