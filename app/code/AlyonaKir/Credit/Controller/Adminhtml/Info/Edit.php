@@ -35,7 +35,7 @@ class Edit extends \Magento\Backend\App\Action
             $FromModel->load($FormId);
         }
 
-        $this->_coreRegistry->register('credit', $FromModel);
+        $this->_coreRegistry->register('credit_form', $FromModel);
         $this->_view->loadLayout();
         $this->_setActiveMenu('AlyonaKir_Credit::module');
 
@@ -46,13 +46,13 @@ class Edit extends \Magento\Backend\App\Action
             $breadcrumbTitle = __('New Form');
             $breadcrumbLabel = __('New Form');
         }
-        $this->_view->getPage()->getConfig()->getTitle()->prepend(__('Manage Post'));
+
         $this->_view->getPage()->getConfig()->getTitle()->prepend($FromModel->getId() ? __('Edit Form') : __('New Form'));
 //        $this->_view->getPage()->getConfig()->getTitle()->prepend(__('Edit Form'));
         $this->_addBreadcrumb($breadcrumbLabel, $breadcrumbTitle);
 
         // restore data
-        $values = $this->_getSession()->getData('credit', true);
+        $values = $this->_getSession()->getData('credit_form', true);
         if ($values) {
             $FromModel->addData($values);
         }

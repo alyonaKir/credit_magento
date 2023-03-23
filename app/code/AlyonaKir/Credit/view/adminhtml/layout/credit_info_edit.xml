@@ -2,9 +2,16 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="styles"/>
     <update handle="editor"/>
+
     <body>
         <referenceContainer name="content">
+
             <uiComponent name="credit_creditinfo_form"/>
+<!--            <block class="AlyonaKir\Credit\Block\Adminhtml\Credit\Edit\Form"-->
+<!--                   name="credit_form"-->
+<!--                   cacheable="false">-->
+<!--            </block>-->
+
         </referenceContainer>
     </body>
 </page>

@@ -52,7 +52,7 @@ class Save extends Action
                 'lock_credit_limit' => $data['credit_fieldset']['lock_credit_limit'],
                 'credit_available' => $data['credit_fieldset']['credit_available'],
                 'purchase_status' => $data['credit_fieldset']['purchase_status'],
-                'date_of_response' => $data['credit_fieldset']['date_of_response'],
+                'date_of_response' => $date,
                 'allowable_purchase_time' => $data['credit_fieldset']['allowable_purchase_time'],
                 'reason' => $data['credit_fieldset']['reason'],
                 'file' => $filepath,
@@ -60,16 +60,17 @@ class Save extends Action
                 'user_id' => $user_id
             ];
             $credit->setData($postdata);
+
             $this->creditRepository->save($credit);
             $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));
 
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__('Try again.'));
-            return $resultRedirect->setPath('*/*/edit');
+            return $resultRedirect->setPath('*/*/index');
         }
         if ($this->getRequest()->getParam('back')) {
             $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));
-            return $resultRedirect->setPath('*/*/edit', ['credit_id' => $id, '_current' => true]);
+            return $resultRedirect->setPath('*/*/index', ['credit_id' => $id, '_current' => true]);
         }
         return $resultRedirect->setPath('*/*/index');
     }

@@ -41,6 +41,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
         foreach ($items as $credit) {
             $this->loadedData[$credit->getCreditId()]['credit_fieldset'] = $credit->getData();
+            $_SESSION['path'] = $credit->getFile();
         }
 
         return $this->loadedData;
