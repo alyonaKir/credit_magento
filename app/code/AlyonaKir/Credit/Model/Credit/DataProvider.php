@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Model\Credit;
+
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
@@ -20,7 +22,8 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = []
-    ) {
+    )
+    {
         $this->collection = $collectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
@@ -30,7 +33,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         if (isset($this->loadedData)) {
             return $this->loadedData;
@@ -41,7 +44,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
         foreach ($items as $credit) {
             $this->loadedData[$credit->getCreditId()]['credit_fieldset'] = $credit->getData();
-            $_SESSION['path'] = $credit->getFile();
+            $this->loadedData[$credit->getCreditId()]['credit_fieldset']['my_url'] = $credit->getFile();
         }
 
         return $this->loadedData;
