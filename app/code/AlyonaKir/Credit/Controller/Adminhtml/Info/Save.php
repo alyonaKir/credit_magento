@@ -4,11 +4,8 @@ declare(strict_types=1);
 namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
 
 use Magento\Backend\App\Action\Context;
-use AlyonaKir\Credit\Model\Credit\Credit;
-use AlyonaKir\Credit\Model\Credit\CreditFactory;
 use AlyonaKir\Credit\Model\Credit\CreditRepository;
 use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action;
 
 class Save extends Action
@@ -17,18 +14,15 @@ class Save extends Action
 
     protected DateTime $date;
 
-    protected CreditFactory $creditFactory;
     protected CreditRepository $creditRepository;
 
     public function __construct(
         Context          $context,
         DateTime         $date,
-        CreditFactory    $creditFactory,
         CreditRepository $creditRepository
     )
     {
         $this->date = $date;
-        $this->creditFactory = $creditFactory;
         $this->creditRepository = $creditRepository;
         parent::__construct($context);
     }
@@ -43,23 +37,15 @@ class Save extends Action
                 $id = $_SESSION['id'];
             }
             $date = $this->date->gmtDate();
-            $credit = $this->creditFactory->create();
-            $filepath = $this->creditRepository->getById((int)$id)->getFile();
-            $user_id = $this->creditRepository->getById((int)$id)->getUserId();
+            $credit = $this->creditRepository->getById((int)$id);
 
-            $postdata = [
-                'credit_limit' => $data['credit_fieldset']['credit_limit'],
-                'lock_credit_limit' => $data['credit_fieldset']['lock_credit_limit'],
-                'credit_available' => $data['credit_fieldset']['credit_available'],
-                'purchase_status' => $data['credit_fieldset']['purchase_status'],
-                'date_of_response' => $date,
-                'allowable_purchase_time' => $data['credit_fieldset']['allowable_purchase_time'],
-                'reason' => $data['credit_fieldset']['reason'],
-                'file' => $filepath,
-                'updated_at' => $date,
-                'user_id' => $user_id
-            ];
-            $credit->setData($postdata);
+            $credit->setCreditLimit((int)$data['credit_fieldset']['credit_limit']);
+            $credit->setLockCreditLimit((int)$data['credit_fieldset']['lock_credit_limit']);
+            $credit->setCreditAvailable((int)$data['credit_fieldset']['credit_available']);
+            $credit->setPurchaseStatus((int)$data['credit_fieldset']['purchase_status']);
+            $credit->setDateOfResponse($date);
+            $credit->setAllowablePurchaseTime($data['credit_fieldset']['allowable_purchase_time']);
+            $credit->setReason($data['credit_fieldset']['reason']);
 
             $this->creditRepository->save($credit);
             $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));

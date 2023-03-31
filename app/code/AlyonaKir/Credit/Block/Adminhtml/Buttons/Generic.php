@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace AlyonaKir\Credit\Block\Adminhtml\Buttons;
 
 use Magento\Backend\Block\Widget\Context;
@@ -7,15 +8,15 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 class Generic
 {
-    protected $context;
-    protected $customform;
+    protected Context $context;
+
 
     public function __construct(Context $context)
     {
         $this->context = $context;
     }
 
-    public function getEntityId():?int
+    public function getEntityId(): ?int
     {
         try {
             return $this->context->getRequest()->getParam('credit_id');

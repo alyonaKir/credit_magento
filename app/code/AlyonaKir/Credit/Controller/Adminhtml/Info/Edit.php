@@ -6,8 +6,9 @@ namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
 use Magento\Backend\App\Action\Context;
 use AlyonaKir\Credit\Model\Credit\CreditFactory;
 use Magento\Framework\Registry;
+use Magento\Backend\App\Action;
 
-class Edit extends \Magento\Backend\App\Action
+class Edit extends Action
 {
     protected $_coreRegistry = null;
     protected $_publicActions = ['edit'];
@@ -48,16 +49,13 @@ class Edit extends \Magento\Backend\App\Action
         }
 
         $this->_view->getPage()->getConfig()->getTitle()->prepend($FromModel->getId() ? __('Edit Form') : __('New Form'));
-//        $this->_view->getPage()->getConfig()->getTitle()->prepend(__('Edit Form'));
         $this->_addBreadcrumb($breadcrumbLabel, $breadcrumbTitle);
 
-        // restore data
         $values = $this->_getSession()->getData('credit_form', true);
         if ($values) {
             $FromModel->addData($values);
         }
 
-        $this->_session->start();
         $_SESSION['id'] = $FormId;
         $this->_view->renderLayout();
     }

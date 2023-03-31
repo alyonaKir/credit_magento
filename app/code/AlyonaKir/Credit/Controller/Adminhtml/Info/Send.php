@@ -5,7 +5,6 @@ namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
 
 use AlyonaKir\Credit\Model\Mail\TransportBuilder;
 use Magento\Framework\Controller\Result\Redirect;
-use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\App\Action;
 

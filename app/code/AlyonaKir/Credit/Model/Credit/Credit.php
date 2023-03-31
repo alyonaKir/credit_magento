@@ -142,13 +142,14 @@ class Credit extends AbstractModel implements CreditInterface
         $this->setData(CreditInterface::CREATED_AT, $createdAt);
     }
 
-    public function getUserId(): int
+
+    public function getApplicationId(): int
     {
-        return (int)$this->getData(CreditInterface::USER_ID);
+        return (int)$this->getData(CreditInterface::APPLICATION_ID);
     }
 
-    public function setUserId(int $userId): void
+    public function setApplicationId(int $applicationId): void
     {
-        $this->setData(CreditInterface::USER_ID, $userId);
+        $this->setData(CreditInterface::APPLICATION_ID, $applicationId);
     }
 }

@@ -28,7 +28,7 @@
 
     <dataSource name="alyona_creditinfo_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">AlyonaKir\Credit\Model\Credit\DataProvider</argument>
+            <argument name="class" xsi:type="string">AlyonaKir\Credit\Model\Credit\Form\DataProvider</argument>
             <argument name="name" xsi:type="string">credit_creditinfo_form_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">credit_id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
@@ -106,7 +106,7 @@
             </argument>
         </field>
 
-        <field name="purchase_status">
+        <field name="purchase_status" component="AlyonaKir_Credit/js/options">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">AlyonaKir\Credit\Model\Config\Source\PurchaseStatus</item>
                 <item name="config" xsi:type="array">
@@ -128,21 +128,6 @@
                 <dataType>text</dataType>
                 <label translate="true">Customer document</label>
                 <dataScope>my_url</dataScope>
-            </settings>
-        </field>
-
-        <field name="date_of_response" formElement="date">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                </item>
-            </argument>
-            <settings>
-                <validation>
-                    <rule name="validate-date" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <label translate="true">Response date</label>
-                <visible>true</visible>
             </settings>
         </field>
 

@@ -48,12 +48,40 @@ if($item!=null):
     <fieldset class="fieldset info">
         <legend class="legend"><span><?= $block->escapeHtml(__('Credit Information')) ?></span></legend><br>
 
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('First Name')) ?></span>
+            </label>
+            <input type="text" name="first_name">
+        </div>
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('Last Name')) ?></span>
+            </label>
+            <input type="text" name="last_name">
+        </div>
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('Email')) ?></span>
+            </label>
+            <input type="email" name="email">
+        </div>
+
+        <div class="field required">
+            <label class="label">
+                <span><?= $block->escapeHtml(__('Phone Number')) ?></span>
+            </label>
+            <input type="number" name="phone_number">
+        </div>
+
         <div class="field required">
             <label class="label">
                 <span><?= $block->escapeHtml(__('Credit limit')) ?></span>
-
             </label>
-            <input type="text" placeholder="1 000 000" name="credit_limit">
+            <input type="number" placeholder="1 000 000" name="credit_amount">
         </div>
 
 
@@ -64,6 +92,7 @@ if($item!=null):
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input class="file-uploader " type="file" id="file" name="file" value="">
         </div>
+
         <div class="actions-toolbar">
             <div class="primary">
                 <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>">

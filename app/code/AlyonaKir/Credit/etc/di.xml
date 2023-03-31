@@ -19,4 +19,5 @@
         </arguments>
     </virtualType>
 
+    <preference for="AlyonaKir\Credit\Api\ApplicationRepositoryInterface" type="AlyonaKir\Credit\Model\Application\ApplicationRepository"/>
 </config>

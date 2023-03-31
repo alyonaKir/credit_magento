@@ -66,8 +66,8 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
     {
         $credit = $this->creditFactory->create();
         $credit = $this->creditRepository->getById((int)$_SESSION['id']);
-        $customer = $this->_customerRepositoryInterface->getById((int)$credit->getUserId());
-        $email = $customer->getEmail();
+        //$customer = $this->_customerRepositoryInterface->getById((int)$credit->getUserId());
+        //$email = $customer->getEmail();
         $email = "mandarinkaizvinsaida@gmail.com";
         try {
             $this->inlineTranslation->suspend();
@@ -85,8 +85,8 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
                 )
                 ->setTemplateVars([
                     'templateVar' => 'Credit Info',
-                    'firstName' => $customer->getFirstname(),
-                    'lastName' => $customer->getLastname(),
+                    'firstName' => 'First',
+                    'lastName' => 'Last',
                     'status' => $credit->getPurchaseStatus(),
                     'reason' => $credit->getReason()
                 ])

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AlyonaKir\Credit\Model\Credit;
+namespace AlyonaKir\Credit\Model\Credit\Form;
 
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 

@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Model\Credit\Grid;
 
+use AlyonaKir\Credit\Api\ApplicationRepositoryInterface;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection;
 use Magento\Ui\DataProvider\AbstractDataProvider;
-use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Ui\DataProvider\AddFilterToCollectionInterface;
 use Magento\Ui\DataProvider\AddFieldToCollectionInterface;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Backend\Model\Url;
 
 class CustomDataProvider extends AbstractDataProvider
 {
@@ -30,7 +31,9 @@ class CustomDataProvider extends AbstractDataProvider
      */
     protected array $addFilterStrategies;
 
-    protected CustomerRepositoryInterface $_customerRepositoryInterface;
+    protected ApplicationRepositoryInterface $applicationRepository;
+
+    protected Url $url;
 
     /**
      * Construct
@@ -49,7 +52,8 @@ class CustomDataProvider extends AbstractDataProvider
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $collectionFactory,
-        CustomerRepositoryInterface $customerRepositoryInterface,
+        ApplicationRepositoryInterface $applicationRepository,
+        Url $url,
         array $addFieldStrategies = [],
         array $addFilterStrategies = [],
         array $meta = [],
@@ -57,9 +61,9 @@ class CustomDataProvider extends AbstractDataProvider
     )
     {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
-        $this->_customerRepositoryInterface = $customerRepositoryInterface;
+        $this->applicationRepository = $applicationRepository;
         $this->collection = $collectionFactory->create();
-
+        $this->url = $url;
         $this->addFieldStrategies = $addFieldStrategies;
         $this->addFilterStrategies = $addFilterStrategies;
     }
@@ -79,9 +83,9 @@ class CustomDataProvider extends AbstractDataProvider
 
 
         for ($i = 0; $i < $items['totalRecords']; $i++) {
-            $customer = $this->_customerRepositoryInterface->getById($items['items'][$i]['user_id']);
+            $customer = $this->applicationRepository->getById((int)$items['items'][$i]['application_id'])->getCustomer();
             $items['items'][$i]['userName'] = $customer->getFirstname() . " " . $customer->getLastname();
-            $items['items'][$i]['link'] = 'https://' . $_SERVER['HTTP_HOST'] . '/backend/customer/index/edit/id/' . $items['items'][$i]['user_id'];
+            $items['items'][$i]['link'] = 'https://' . $_SERVER['HTTP_HOST'] . '/backend/customer/index/edit/id/' . $customer->getId() . "/key/" . $this->url->getSecretKey('customer', 'index', 'edit');
         }
         $buff = $items['items'];
 

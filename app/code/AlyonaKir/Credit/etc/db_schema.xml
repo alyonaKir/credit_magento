@@ -12,15 +12,33 @@
                 identity="false" default="0" comment="Purchase Status "/>
         <column xsi:type="varchar" name="file" length="50" nullable="false" comment="Uploaded file "/>
         <column xsi:type="date" name="date_of_response" nullable="true" comment="Date of response"/>
-        <column xsi:type="date" name="allowable_purchase_time" nullable="false" comment="Allowable purchase time"/>
-        <column xsi:type="varchar" name="reason" length="1000" nullable="false" comment="Reason"/>
+        <column xsi:type="date" name="allowable_purchase_time" nullable="true" comment="Allowable purchase time"/>
+        <column xsi:type="varchar" name="reason" length="1000" nullable="true" comment="Reason"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Update Time"/>
-        <column xsi:type="int" name="user_id" unsigned="true" nullable="false" comment="User ID"/>
+        <column xsi:type="int" name="application_id" unsigned="true" nullable="false" comment="User ID"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="credit_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="credit_application" resource="default" engine="innodb" comment="Credit info">
+        <column xsi:type="int" name="application_id" unsigned="true" nullable="false" identity="true"
+                comment="Application ID"/>
+        <column xsi:type="varchar" name="first_name" length="1000" nullable="true" comment="First name"/>
+        <column xsi:type="varchar" name="last_name" length="1000" nullable="true" comment="Last name"/>
+        <column xsi:type="varchar" name="email" length="1000" nullable="true" comment="Email"/>
+        <column xsi:type="varchar" name="phone" length="1000" nullable="true" comment="Phone"/>
+        <column xsi:type="int" name="credit_amount" nullable="false" comment="Credit Amount field"/>
+        <column xsi:type="varchar" name="file" length="50" nullable="false" comment="Uploaded file "/>
+        <column xsi:type="timestamp" name="sent_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Sending Time"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" comment="Customer ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="application_id"/>
         </constraint>
 
     </table>
