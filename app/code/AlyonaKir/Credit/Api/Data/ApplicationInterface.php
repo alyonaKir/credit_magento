@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace AlyonaKir\Credit\Api\Data;
 
 
-use Magento\Customer\Api\Data\CustomerInterface;
-
 interface ApplicationInterface
 {
     const TABLE = 'credit_application';
@@ -25,6 +23,10 @@ interface ApplicationInterface
     public function getFile():string;
     public function getCustomerId():int;
     public function getSentAt():string;
+    public function getFirstName(): string;
+    public function getLastName(): string;
+    public function getEmail(): string;
+    public function getPhone(): string;
     public function setApplicationId(int $applicationId):void;
     public function setCreditAmount(int $creditAmount):void;
     public function setFile(string $file):void;

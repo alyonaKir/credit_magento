@@ -69,6 +69,10 @@ class Form implements ActionInterface
                         $flag = 1;
                     }
                     $applicationData = [
+                        'first_name' => $_POST['first_name'],
+                        'last_name' => $_POST['last_name'],
+                        'email' => $_POST['email'],
+                        'phone' => $_POST['phone_number'],
                         'credit_amount' => $_POST['credit_amount'],
                         'file' => ($flag) ? "/pub/upload/" . basename($_FILES['file']['name']) : "no file",
                         'customer_id' => $_SESSION['customer_base']['customer_id']
@@ -90,9 +94,9 @@ class Form implements ActionInterface
                     return;
                 }
             } catch (\Exception $ex) {
-                $this->messageManager->addErrorMessage("Something went wrong ".$ex);
+                //$this->addErrorMessage("Something went wrong ".$ex);
             }
-            $this->messageManager->addSuccessMessage("The request will be processed in three days.");
+            //$this->messageManager->addSuccessMessage("The request will be processed in three days.");
         }
     }
 

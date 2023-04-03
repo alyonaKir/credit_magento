@@ -83,9 +83,9 @@ class CustomDataProvider extends AbstractDataProvider
 
 
         for ($i = 0; $i < $items['totalRecords']; $i++) {
-            $customer = $this->applicationRepository->getById((int)$items['items'][$i]['application_id'])->getCustomer();
-            $items['items'][$i]['userName'] = $customer->getFirstname() . " " . $customer->getLastname();
-            $items['items'][$i]['link'] = 'https://' . $_SERVER['HTTP_HOST'] . '/backend/customer/index/edit/id/' . $customer->getId() . "/key/" . $this->url->getSecretKey('customer', 'index', 'edit');
+            $customer = $this->applicationRepository->getById((int)$items['items'][$i]['application_id']);
+            $items['items'][$i]['userName'] = $customer->getFirstName() . " " . $customer->getLastname();
+            $items['items'][$i]['link'] = 'https://' . $_SERVER['HTTP_HOST'] . '/backend/customer/index/edit/id/' . $customer->getCustomerId() . "/key/" . $this->url->getSecretKey('customer', 'index', 'edit');
         }
         $buff = $items['items'];
 

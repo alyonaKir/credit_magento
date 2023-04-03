@@ -111,4 +111,24 @@ class Application extends AbstractModel implements ApplicationInterface
     {
         $this->setData(ApplicationInterface::PHONE, $phone);
     }
+
+    public function getFirstName(): string
+    {
+        return $this->getData(ApplicationInterface::FIRST_NAME);
+    }
+
+    public function getLastName(): string
+    {
+        return $this->getData(ApplicationInterface::LAST_NAME);
+    }
+
+    public function getEmail(): string
+    {
+        return $this->getData(ApplicationInterface::EMAIL);
+    }
+
+    public function getPhone(): string
+    {
+        return $this->getData(ApplicationInterface::PHONE);
+    }
 }
