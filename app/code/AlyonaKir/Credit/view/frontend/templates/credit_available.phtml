@@ -1,0 +1,41 @@
+<?php /** @var Magento\Framework\View\Element\Template $block */ ?>
+<?php $status = $block->getStatus(); ?>
+<?php if ($status != -1): ?>
+    <h3>Your status is <?php echo $block->getStatusFromOptionsArray($status); ?></h3>
+    <p><?php echo $block->statusDescribe($status);
+    $item = $block->getAllCreditInfo();
+    if ($item != null):
+        ?></p>
+
+        <div class="table-wrapper orders-history">
+            <table class="data table table-order-items history" id="my-orders-table">
+                <caption class="table-caption"><?php echo __('Credit info') ?></caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col"><?php echo __('Credit Limit') ?></th>
+                    <th scope="col" class="col"><?php echo __('Credit Available') ?></th>
+                    <th scope="col" class="col"><?php echo __('Allowable Purchase Date') ?></th>
+                    <th scope="col" class="col createat"><?php echo __('Created At') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('Credit Limit')) ?>" class="col">
+                        <?php echo $item->getCreditLimit() ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Credit Available')) ?>" class="col">
+                        <?php echo $item->getCreditAvailable() ?>
+                    </td>
+
+                    <td data-th="<?= $block->escapeHtml(__('Allowable Purchase Date')) ?>"
+                        class="col title"><?php echo date('Y-m-d', strtotime($item->getAllowablePurchaseTime())); ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Created At')) ?>"
+                        class="col title"><?php echo date('Y-m-d', strtotime($item->getCreatedAt())); ?>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

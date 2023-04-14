@@ -9,7 +9,7 @@ use AlyonaKir\Credit\Model\Credit\Credit;
 /**
  * @covers \AlyonaKir\Credit\Model\Credit\Credit
  */
-class TestModel extends TestCase
+class TestCreditModel extends TestCase
 {
     protected $_model;
     protected $_objectManager;

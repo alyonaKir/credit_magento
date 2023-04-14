@@ -1,0 +1,18 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Credit Available</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+
+            <block class="AlyonaKir\Credit\Block\CreditAvailable"
+                   name="credit"
+                   template="AlyonaKir_Credit::credit_available.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

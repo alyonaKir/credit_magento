@@ -13,7 +13,7 @@
         <column xsi:type="varchar" name="file" length="50" nullable="false" comment="Uploaded file "/>
         <column xsi:type="date" name="date_of_response" nullable="true" comment="Date of response"/>
         <column xsi:type="date" name="allowable_purchase_time" nullable="true" comment="Allowable purchase time"/>
-        <column xsi:type="varchar" name="reason" length="1000" nullable="true" comment="Reason"/>
+        <column xsi:type="varchar" name="reason" length="1000" nullable="true" default="No reason" comment="Reason"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"

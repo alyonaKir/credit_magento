@@ -3,44 +3,43 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Test\Unit\Model;
 
-use Magento\Framework\Api\SearchCriteria;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use PHPUnit\Framework\TestCase;
 use \PHPUnit\Framework\MockObject\MockObject;
-use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
-use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection;
-use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit as CreditResource;
-use AlyonaKir\Credit\Model\Credit\CreditFactory;
-use AlyonaKir\Credit\Model\Credit\Credit;
-use AlyonaKir\Credit\Model\Credit\CreditSearchResultFactory;
-use AlyonaKir\Credit\Model\Credit\CreditSearchResult;
-use AlyonaKir\Credit\Api\CreditSearchResultInterface;
-use AlyonaKir\Credit\Model\Credit\CreditRepository;
+use AlyonaKir\Credit\Model\ResourceModel\Application\Application\CollectionFactory;
+use AlyonaKir\Credit\Model\ResourceModel\Application\Application\Collection;
+use AlyonaKir\Credit\Model\ResourceModel\Application\Application as ApplicationResource;
+use AlyonaKir\Credit\Model\Application\ApplicationFactory;
+use AlyonaKir\Credit\Model\Application\Application;
+use AlyonaKir\Credit\Model\Application\ApplicationSearchResultsFactory;
+use AlyonaKir\Credit\Api\ApplicationSearchResultInterface;
+use AlyonaKir\Credit\Model\Application\ApplicationRepository;
+use Magento\Framework\Api\Search\FilterGroup;
+use Magento\Framework\Api\Filter;
 
 /**
- * @covers \AlyonaKir\Credit\Model\CreditRepository
+ * @covers ApplicationRepository
  */
-class TestRepository extends TestCase
+class TestApplicationRepository extends TestCase
 {
 
-    protected CreditRepository|MockObject $object;
+    protected ApplicationRepository|MockObject $object;
 
 
     private CollectionFactory|MockObject $collectionFactory;
 
-    private CreditResource|MockObject $creditResource;
+    private ApplicationResource|MockObject $applicationResource;
 
 
-    private CreditFactory|MockObject $creditFactory;
+    private ApplicationFactory|MockObject $applicationFactory;
 
 
     private SearchCriteriaBuilder|MockObject $searchCriteriaBuilder;
 
-    private CreditSearchResultFactory|MockObject $searchResultFactory;
+    private ApplicationSearchResultsFactory|MockObject $searchResultFactory;
 
-    private Credit|MockObject $credit;
+    private Application|MockObject $application;
 
     protected function setUp(): void
     {
@@ -49,11 +48,11 @@ class TestRepository extends TestCase
             ['create']
         );
 
-        $this->creditResource = $this->getMockBuilder(CreditResource::class)
+        $this->applicationResource = $this->getMockBuilder(ApplicationResource::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->creditFactory = $this->createPartialMock(
-            CreditFactory::class,
+        $this->applicationFactory = $this->createPartialMock(
+            ApplicationFactory::class,
             ['create']
         );
 
@@ -64,18 +63,18 @@ class TestRepository extends TestCase
 
 
         $this->searchResultFactory = $this->createPartialMock(
-            CreditSearchResultFactory::class,
+            ApplicationSearchResultsFactory::class,
             ['create']
         );
 
-        $this->credit = $this->getMockBuilder(Credit::class)
+        $this->application = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->object = new CreditRepository(
+        $this->object = new ApplicationRepository(
             $this->collectionFactory,
-            $this->creditResource,
-            $this->creditFactory,
+            $this->applicationResource,
+            $this->applicationFactory,
             $this->searchCriteriaBuilder,
             $this->searchResultFactory
         );
@@ -85,11 +84,11 @@ class TestRepository extends TestCase
     /** @test */
     public function testSave()
     {
-        $model = $this->getMockBuilder(Credit::class)
+        $model = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->creditResource->expects($this->any())
+        $this->applicationResource->expects($this->any())
             ->method('save')
             ->with($model);
 
@@ -101,11 +100,11 @@ class TestRepository extends TestCase
     /** @test */
     public function testDelete()
     {
-        $model = $this->getMockBuilder(Credit::class)
+        $model = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->creditResource->expects($this->any())
+        $this->applicationResource->expects($this->any())
             ->method('delete')
             ->with($model);
 
@@ -118,34 +117,34 @@ class TestRepository extends TestCase
     /** @test */
     public function testGetById()
     {
-        $creditId = 5;
-        $creditMock = $this->createMock(Credit::class);
-        $creditMock->expects(
+        $ApplicationId = 5;
+        $ApplicationMock = $this->createMock(Application::class);
+        $ApplicationMock->expects(
             $this->once()
         )->method('getId')->willReturn(
-            $creditId
+            $ApplicationId
         );
 
-        $this->creditFactory->expects(
+        $this->applicationFactory->expects(
             $this->once()
         )->method('create')->willReturn(
-            $creditMock
+            $ApplicationMock
         );
-        $this->creditResource->expects(
+        $this->applicationResource->expects(
             $this->once()
         )->method('load')->with(
-            $creditMock,
-            $creditId
+            $ApplicationMock,
+            $ApplicationId
         );
 
-        $this->assertEquals($creditMock, $this->object->getById($creditId));
+        $this->assertEquals($ApplicationMock, $this->object->getById($ApplicationId));
     }
 
 
     /** @test */
     public function testGetList()
     {
-        $filter = $this->getMockBuilder(\Magento\Framework\Api\Filter::class)
+        $filter = $this->getMockBuilder(Filter::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -153,7 +152,7 @@ class TestRepository extends TestCase
             ->method('getConditionType')
             ->willReturn(0);
 
-        $filterGroup = $this->getMockBuilder(\Magento\Framework\Api\Search\FilterGroup::class)
+        $filterGroup = $this->getMockBuilder(FilterGroup::class)
             ->disableOriginalConstructor()
             ->getMock();
         $filterGroup->expects($this->once())
@@ -178,9 +177,9 @@ class TestRepository extends TestCase
 
         $collectionMock->expects($this->atLeastOnce())
             ->method('getItems')
-            ->willReturn([$this->credit]);
+            ->willReturn([$this->application]);
 
-        $searchResultsMock = $this->getMockForAbstractClass(CreditSearchResultInterface::class);
+        $searchResultsMock = $this->getMockForAbstractClass(ApplicationSearchResultInterface::class);
 
         $this->searchResultFactory->expects($this->once())->method('create')->willReturn($searchResultsMock);
         $this->assertEquals(array(), $this->object->getList($searchCriteriaMock));

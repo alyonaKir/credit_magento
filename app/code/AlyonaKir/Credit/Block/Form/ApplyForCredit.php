@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Block\Form;
 
-use AlyonaKir\Credit\Api\Data\CreditInterface;
 use AlyonaKir\Credit\Model\Credit\Credit;
 use Magento\Framework\View\Element\Template;
 use AlyonaKir\Credit\Model\Credit\CreditRepositoryFactory;
 use AlyonaKir\Credit\Model\Config\Source\PurchaseStatus;
+use AlyonaKir\Credit\Model\Application\ApplicationRepositoryFactory;
 
 class ApplyForCredit extends Template
 {
     protected CreditRepositoryFactory $creditRepositoryFactory;
+    protected ApplicationRepositoryFactory $applicationRepositoryFactory;
     protected PurchaseStatus $purchaseStatus;
 
     protected Credit $object;
@@ -19,6 +20,7 @@ class ApplyForCredit extends Template
     public function __construct(
         CreditRepositoryFactory $creditRepositoryFactory,
         PurchaseStatus          $purchaseStatus,
+        ApplicationRepositoryFactory $applicationRepositoryFactory,
         Credit                  $object,
         Template\Context        $context,
         array                   $data = []
@@ -26,6 +28,7 @@ class ApplyForCredit extends Template
     {
         $this->object = $object;
         $this->purchaseStatus = $purchaseStatus;
+        $this->applicationRepositoryFactory = $applicationRepositoryFactory;
         $this->creditRepositoryFactory = $creditRepositoryFactory;
         parent::__construct($context, $data);
     }
@@ -34,10 +37,13 @@ class ApplyForCredit extends Template
     {
         $userId = $_SESSION['customer_base']['customer_id'];
         $creditRepository = $this->creditRepositoryFactory->create();
+        $applicationRepository = $this->applicationRepositoryFactory->create();
         $credits = $creditRepository->getList();
+
         foreach ($credits as $credit) {
-            if ($credit->getUserId() == $userId && $credit->getPurchaseStatus() != 4)
-            return (int)$credit->getPurchaseStatus();
+            $application = $applicationRepository->getById((int)$credit->getApplicationId());
+            if( $application->getCustomerId() == $userId && $credit->getPurchaseStatus() != 4)
+                return (int)$credit->getPurchaseStatus();
         }
         return -1;
     }
@@ -58,15 +64,4 @@ class ApplyForCredit extends Template
         };
     }
 
-    public function getAllCreditInfo()
-    {
-        $userId = $_SESSION['customer_base']['customer_id'];
-        $creditRepository = $this->creditRepositoryFactory->create();
-        $credits = $creditRepository->getList();
-        foreach ($credits as $credit) {
-            if ($credit->getUserId() == $userId && $credit->getPurchaseStatus() == 2)
-                return $credit;
-        }
-        return null;
-    }
 }

@@ -8,6 +8,14 @@
                     <argument name="label" xsi:type="string">Apply For Credit</argument>
                 </arguments>
             </block>
+
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-new-custom">
+                <arguments>
+                    <argument name="path" xsi:type="string">credit/customer/credit</argument>
+                    <argument name="label" xsi:type="string">Credit Available</argument>
+                </arguments>
+            </block>
+
         </referenceBlock>
     </body>
 </page>

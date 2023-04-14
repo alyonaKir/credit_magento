@@ -11,7 +11,9 @@ define([
 
         initialize: function () {
             this._super();
-           //hideAllFields();
+            //this.onUpdate(status);
+            return this;
+            //console.log(this.initialValue);
         },
 
         /**
@@ -20,6 +22,7 @@ define([
          * @param {String} value
          */
         onUpdate: function (value) {
+            console.log("On update");
             let sel = document.getElementsByClassName("admin__control-select")[0];
 
             if (value == 0) {
@@ -43,6 +46,7 @@ define([
             } else {
                 showAllOptions();
             }
+
             return this._super();
         }
 
@@ -66,7 +70,6 @@ define([
         uiRegistry.get('index = reason').hide();
         uiRegistry.get('index = lock_credit_limit').hide();
         uiRegistry.get('index = credit_available').hide();
-        uiRegistry.get('index = date_of_response').hide();
         uiRegistry.get('index = allowable_purchase_time').hide();
         uiRegistry.get('index = credit_limit').hide();
     }
@@ -75,7 +78,6 @@ define([
         uiRegistry.get('index = reason').show();
         uiRegistry.get('index = lock_credit_limit').show();
         uiRegistry.get('index = credit_available').show();
-        uiRegistry.get('index = date_of_response').show();
         uiRegistry.get('index = allowable_purchase_time').show();
         uiRegistry.get('index = credit_limit').show();
     }

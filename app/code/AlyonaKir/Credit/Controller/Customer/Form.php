@@ -14,6 +14,7 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Filesystem\DirectoryList;
+use Magento\Framework\Message\ManagerInterface;
 
 class Form implements ActionInterface
 {
@@ -27,6 +28,7 @@ class Form implements ActionInterface
 
     private File $file;
     private DirectoryList $dir;
+    protected $messageManager;
 
     public function __construct(
         Context                      $context,
@@ -35,6 +37,7 @@ class Form implements ActionInterface
         CreditRepositoryFactory      $creditRepositoryFactory,
         ApplicationFactory           $applicationFactory,
         ApplicationRepositoryFactory $applicationRepositoryFactory,
+        ManagerInterface             $messageManager,
         File                         $file,
         DirectoryList                $dir,
     )
@@ -44,6 +47,7 @@ class Form implements ActionInterface
         $this->creditFactory = $creditFactory;
         $this->creditRepositoryFactory = $creditRepositoryFactory;
         $this->_pageFactory = $pageFactory;
+        $this->messageManager = $messageManager;
         $this->file = $file;
         $this->dir = $dir;
     }
@@ -94,9 +98,9 @@ class Form implements ActionInterface
                     return;
                 }
             } catch (\Exception $ex) {
-                //$this->addErrorMessage("Something went wrong ".$ex);
+                $this->messageManager->addErrorMessage("Something went wrong ".$ex);
             }
-            //$this->messageManager->addSuccessMessage("The request will be processed in three days.");
+            $this->messageManager->addSuccessMessage("The request will be processed in three days.");
         }
     }
 

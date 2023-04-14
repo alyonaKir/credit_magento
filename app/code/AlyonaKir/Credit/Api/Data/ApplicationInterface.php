@@ -18,6 +18,7 @@ interface ApplicationInterface
     const EMAIL = 'email';
     const PHONE = 'phone';
 
+
     public function getApplicationId():int;
     public function getCreditAmount():int;
     public function getFile():string;
@@ -31,7 +32,7 @@ interface ApplicationInterface
     public function setCreditAmount(int $creditAmount):void;
     public function setFile(string $file):void;
     public function setCustomerId(int $customerId):void;
-    public function setSentAt(int $sentAt):void;
+    public function setSentAt(string $sentAt):void;
     public function setFirstName(string $firstName): void;
     public function setLastName(string $lastName): void;
     public function setEmail(string $email): void;
