@@ -59,6 +59,18 @@ class CreditRepository implements CreditRepositoryInterface
         return $object;
     }
 
+    public function getByApplicationId(int $application_id): ?CreditInterface
+    {
+        $credits = $this->getList();
+        foreach ($credits as $credit) {
+            if ($credit->getApplicationId()==$application_id) {
+                return $this->getById((int)$credit->getCreditId());
+            }
+        }
+        return null;
+        //throw new NoSuchEntityException(__('Unable to find entity with application ID "%1"', $application_id));
+    }
+
 
     /**
      * @param SearchCriteriaInterface|null $searchCriteria

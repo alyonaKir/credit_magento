@@ -41,4 +41,10 @@ interface CreditRepositoryInterface
      * @return bool
      */
     public function deleteById(int $id): bool;
+
+    /**
+     * @param int $application_id
+     * @return CreditInterface|null
+     */
+    public function getByApplicationId(int $application_id): ?CreditInterface;
 }

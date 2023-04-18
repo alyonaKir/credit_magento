@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Test\Unit\Model;
 
-use Magento\Framework\Api\SearchCriteria;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\Filter;
+use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use PHPUnit\Framework\TestCase;
@@ -97,6 +97,56 @@ class TestCreditRepository extends TestCase
 
         $this->assertSame($model, $result);
     }
+
+    /** @test */
+    public function testGetByApplicationId()
+    {
+        $applicationId = 5;
+        $creditMock = $this->createMock(Credit::class);
+
+        $filter = $this->getMockBuilder(Filter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $filter->expects($this->any())
+            ->method('getConditionType')
+            ->willReturn(0);
+
+        $filterGroup = $this->getMockBuilder(FilterGroup::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $filterGroup->expects($this->once())
+            ->method('getFilters')
+            ->willReturn([$filter]);
+
+        $searchCriteriaMock = $this->createMock(SearchCriteriaInterface::class);
+        $searchCriteriaMock->expects($this->once())
+            ->method('getFilterGroups')
+            ->willReturn([$filterGroup]);
+
+        $this->searchCriteriaBuilder->expects($this->any())
+            ->method('create')
+            ->willReturn($searchCriteriaMock);
+        $searchCriteriaMock = $this->searchCriteriaBuilder->create();
+
+        $collectionMock = $this->createMock(Collection::class);
+
+        $this->collectionFactory->expects($this->once())
+            ->method('create')
+            ->willReturn($collectionMock);
+
+        $collectionMock->expects($this->atLeastOnce())
+            ->method('getItems')
+            ->willReturn([$creditMock]);
+
+        $searchResultsMock = $this->getMockForAbstractClass(CreditSearchResult::class);
+
+        $this->searchResultFactory->expects($this->once())->method('create')->willReturn($searchResultsMock);
+
+        $this->assertNull($this->object->getByApplicationId($applicationId));
+    }
+
+
 
     /** @test */
     public function testDelete()

@@ -58,6 +58,16 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         return $object;
     }
 
+    public function getByCustomerId(int $customer_id): ?ApplicationInterface
+    {
+        $applications = $this->getList();
+        foreach ($applications as $application) {
+            if ($application->getCustomerId()==$customer_id) {
+                return $this->getById((int)$application->getApplicationId());
+            }
+        }
+        return null;
+    }
     public function getList(SearchCriteriaInterface $searchCriteria = null): array
     {
         $collection = $this->collectionFactory->create();

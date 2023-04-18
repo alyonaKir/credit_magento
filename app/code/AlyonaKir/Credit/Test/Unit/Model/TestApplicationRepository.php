@@ -140,6 +140,54 @@ class TestApplicationRepository extends TestCase
         $this->assertEquals($ApplicationMock, $this->object->getById($ApplicationId));
     }
 
+    /** @test */
+    public function testGetByСustomerId()
+    {
+        $customerId = 5;
+        $applicationMock = $this->createMock(Application::class);
+
+        $filter = $this->getMockBuilder(Filter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $filter->expects($this->any())
+            ->method('getConditionType')
+            ->willReturn(0);
+
+        $filterGroup = $this->getMockBuilder(FilterGroup::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $filterGroup->expects($this->once())
+            ->method('getFilters')
+            ->willReturn([$filter]);
+
+        $searchCriteriaMock = $this->createMock(SearchCriteriaInterface::class);
+        $searchCriteriaMock->expects($this->once())
+            ->method('getFilterGroups')
+            ->willReturn([$filterGroup]);
+
+        $this->searchCriteriaBuilder->expects($this->any())
+            ->method('create')
+            ->willReturn($searchCriteriaMock);
+        $searchCriteriaMock = $this->searchCriteriaBuilder->create();
+
+        $collectionMock = $this->createMock(Collection::class);
+
+        $this->collectionFactory->expects($this->once())
+            ->method('create')
+            ->willReturn($collectionMock);
+
+        $collectionMock->expects($this->atLeastOnce())
+            ->method('getItems')
+            ->willReturn([$applicationMock]);
+
+        $searchResultsMock = $this->getMockForAbstractClass(ApplicationSearchResultInterface::class);
+
+        $this->searchResultFactory->expects($this->once())->method('create')->willReturn($searchResultsMock);
+
+        $this->assertNull($this->object->getByCustomerId($customerId));
+    }
+
 
     /** @test */
     public function testGetList()

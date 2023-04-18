@@ -37,4 +37,10 @@ interface ApplicationRepositoryInterface
      * @return bool
      */
     public function deleteById(int $id): bool;
+
+    /**
+     * @param int $customer_id
+     * @return ApplicationInterface|null
+     */
+    public function getByCustomerId(int $customer_id): ?ApplicationInterface;
 }
