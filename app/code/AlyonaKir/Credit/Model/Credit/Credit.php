@@ -91,18 +91,18 @@ class Credit extends AbstractModel implements CreditInterface
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getCreditAvailable(): int
+    public function getCreditAvailable(): float
     {
-        return (int)$this->getData(CreditInterface::CREDIT_AVAILABLE);
+        return (float)$this->getData(CreditInterface::CREDIT_AVAILABLE);
     }
 
     /**
-     * @param int $creditAvailable
+     * @param float $creditAvailable
      * @return void
      */
-    public function setCreditAvailable(int $creditAvailable): void
+    public function setCreditAvailable(float $creditAvailable): void
     {
         $this->setData(CreditInterface::CREDIT_AVAILABLE, $creditAvailable);
     }

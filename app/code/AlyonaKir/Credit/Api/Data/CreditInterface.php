@@ -35,9 +35,9 @@ interface CreditInterface
 
     public function setLockCreditLimit(int $lockCreditLimit): void;
 
-    public function getCreditAvailable(): int;
+    public function getCreditAvailable(): float;
 
-    public function setCreditAvailable(int $creditAvailable): void;
+    public function setCreditAvailable(float $creditAvailable): void;
 
     public function getPurchaseStatus(): int;
 

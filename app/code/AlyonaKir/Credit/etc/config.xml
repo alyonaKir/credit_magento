@@ -1,15 +1,17 @@
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <credit_payment>
-                <payment_action>authorize</payment_action><!-- You can use another methor like capture  -->
-                <model>AlyonaKir\Credit\Model\PaymentMethod</model>
+            <creditpayment>
                 <active>1</active>
+                <model>AlyonaKir\Credit\Model\PaymentMethod\CreditPayment</model>
+                <order_status>pending</order_status>
                 <title>Credit Payment</title>
-                <order_status>pending_payment</order_status><!-- set default order status-->
-                <sort_order>0</sort_order>
-            </credit_payment>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </creditpayment>
         </payment>
     </default>
 </config>
+
