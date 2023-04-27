@@ -34,8 +34,6 @@ class ChangeStatus
                 $this->creditRepository->save($credit);
                 $this->transportBuilder->sendEmail($credit->getApplicationId(), $credit->getCreditId());
             }
-
         }
-
     }
 }

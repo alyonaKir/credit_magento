@@ -57,7 +57,7 @@ class CreditPayment extends AbstractMethod
 
     protected int $application;
     protected ApplicationRepository $applicationRepository;
-    protected $messageManager;
+    protected ManagerInterface $messageManager;
 
     public function __construct(
         CreditRepositoryFactory      $creditRepositoryFactory,

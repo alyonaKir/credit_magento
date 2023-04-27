@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Model\Credit\Form;
 
+use AllowDynamicProperties;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 
-class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+#[AllowDynamicProperties] class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     /**
      * @param string $name
@@ -40,7 +41,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
 
         $items = $this->collection->getItems();
-        $this->loadedData = [];
+        $this->SloadedData = [];
 
         foreach ($items as $credit) {
             $this->loadedData[$credit->getCreditId()]['credit_fieldset'] = $credit->getData();

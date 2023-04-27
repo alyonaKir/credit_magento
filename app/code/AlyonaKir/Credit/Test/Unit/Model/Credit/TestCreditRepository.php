@@ -8,7 +8,7 @@ use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use PHPUnit\Framework\TestCase;
-use \PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\CollectionFactory;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit\Collection;
 use AlyonaKir\Credit\Model\ResourceModel\Credit\Credit as CreditResource;

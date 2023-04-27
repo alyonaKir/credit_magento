@@ -15,7 +15,7 @@ class Credit extends AbstractModel implements CreditInterface
 
     protected $_eventPrefix = 'credit';
 
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init('AlyonaKir\Credit\Model\ResourceModel\Credit\Credit');
     }

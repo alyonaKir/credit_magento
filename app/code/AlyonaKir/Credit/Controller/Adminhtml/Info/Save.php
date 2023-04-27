@@ -14,8 +14,8 @@ class Save extends Action
     protected $resultRedirectFactory;
 
     protected DateTime $date;
-    private TransportBuilder $transportBuilder;
 
+    private TransportBuilder $transportBuilder;
 
     protected CreditRepository $creditRepository;
 
@@ -38,25 +38,7 @@ class Save extends Action
         $data = $this->getRequest()->getPostValue();
         $id = "";
         try {
-            if (isset($_SESSION['id']) && $_SESSION['id'] != null) {
-                $id = $_SESSION['id'];
-            }
-            $date = $this->date->gmtDate("Y-m-d",'+1 day');
-
-            $credit = $this->creditRepository->getById((int)$id);
-            $prevStatus = $credit->getPurchaseStatus();
-
-            $credit->setCreditLimit((int)$data['credit_fieldset']['credit_limit']);
-            $credit->setLockCreditLimit((int)$data['credit_fieldset']['lock_credit_limit']);
-            $credit->setCreditAvailable((int)$data['credit_fieldset']['credit_available']);
-            $credit->setPurchaseStatus((int)$data['credit_fieldset']['purchase_status']);
-            $credit->setDateOfResponse($date);
-            $credit->setAllowablePurchaseTime($data['credit_fieldset']['allowable_purchase_time']==""? $date: $data['credit_fieldset']['allowable_purchase_time']);
-            $credit->setReason($data['credit_fieldset']['reason']==""?"No reason":$data['credit_fieldset']['reason']);
-            $this->creditRepository->save($credit);
-            if($prevStatus!=$credit->getPurchaseStatus()){
-                $this->transportBuilder->sendEmail($credit->getApplicationId(), $credit->getCreditId());
-            }
+            $this->setData($data);
             $this->messageManager->addSuccessMessage(__('The Applicant has been saved.'));
 
         } catch (\Exception $e) {
@@ -68,6 +50,32 @@ class Save extends Action
             return $resultRedirect->setPath('*/*/index', ['credit_id' => $id, '_current' => true]);
         }
         return $resultRedirect->setPath('*/*/index');
+    }
+
+    private function setData(array $data): void
+    {
+        try {
+            if (isset($_SESSION['id']) && $_SESSION['id'] != null) {
+                $id = $_SESSION['id'];
+            }
+            $date = $this->date->gmtDate("Y-m-d", '+1 day');
+            $credit = $this->creditRepository->getById((int)$id);
+            $prevStatus = $credit->getPurchaseStatus();
+
+            $credit->setCreditLimit((int)$data['credit_fieldset']['credit_limit']);
+            $credit->setLockCreditLimit((int)$data['credit_fieldset']['lock_credit_limit']);
+            $credit->setCreditAvailable((int)$data['credit_fieldset']['credit_available']);
+            $credit->setPurchaseStatus((int)$data['credit_fieldset']['purchase_status']);
+            $credit->setDateOfResponse($date);
+            $credit->setAllowablePurchaseTime($data['credit_fieldset']['allowable_purchase_time'] == "" ? $date : $data['credit_fieldset']['allowable_purchase_time']);
+            $credit->setReason($data['credit_fieldset']['reason'] == "" ? "No reason" : $data['credit_fieldset']['reason']);
+            $this->creditRepository->save($credit);
+            if ($prevStatus != $credit->getPurchaseStatus()) {
+                $this->transportBuilder->sendEmail($credit->getApplicationId(), $credit->getCreditId());
+            }
+        } catch (\Exception $ex){
+            throw new \Exception("Something went wrong during saving data");
+        }
     }
 
 }

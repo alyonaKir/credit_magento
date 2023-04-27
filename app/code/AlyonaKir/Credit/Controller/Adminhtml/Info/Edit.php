@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace AlyonaKir\Credit\Controller\Adminhtml\Info;
 
+use AlyonaKir\Credit\Model\Credit\CreditRepositoryFactory;
 use Magento\Backend\App\Action\Context;
 use AlyonaKir\Credit\Model\Credit\CreditFactory;
 use Magento\Framework\Registry;
@@ -13,50 +14,42 @@ class Edit extends Action
     protected $_coreRegistry = null;
     protected $_publicActions = ['edit'];
 
-    private CreditFactory $creditFactory;
+    protected $creditRepository;
+    protected $creditFactory;
+
 
     public function __construct(
         Context       $context,
         Registry      $coreRegistry,
+        CreditRepositoryFactory $creditRepositoryFactory,
         CreditFactory $creditFactory
     )
     {
-        $this->_coreRegistry = $coreRegistry;
+        $this->creditRepository = $creditRepositoryFactory->create();
         $this->creditFactory = $creditFactory;
+        $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
     }
 
     public function execute(): void
     {
-        $_publicActions = ['edit'];
-        $FromModel = $this->_objectManager->create('AlyonaKir\Credit\Model\Credit\Credit');
 
-        $FormId = $this->getRequest()->getParam('id');
-        if ($FormId) {
-            $FromModel->load($FormId);
+        $formModel = $this->creditFactory->create();
+        $formId = $this->getRequest()->getParam('id');
+
+        if ($formId) {
+            $fromModel = $this->creditRepository->getById((int)$formId);
+            $this->_coreRegistry->register('credit_form', $fromModel);
         }
 
-        $this->_coreRegistry->register('credit_form', $FromModel);
         $this->_view->loadLayout();
         $this->_setActiveMenu('AlyonaKir_Credit::module');
+        $breadcrumbTitle = __('Edit Form');
+        $breadcrumbLabel = __('Edit Form');
 
-        if ($FromModel) {
-            $breadcrumbTitle = __('Edit Form');
-            $breadcrumbLabel = __('Edit Form');
-        } else {
-            $breadcrumbTitle = __('New Form');
-            $breadcrumbLabel = __('New Form');
-        }
-
-        $this->_view->getPage()->getConfig()->getTitle()->prepend($FromModel->getId() ? __('Edit Form') : __('New Form'));
+        $this->_view->getPage()->getConfig()->getTitle()->prepend($fromModel->getId() ? __('Edit Form') : __('New Form'));
         $this->_addBreadcrumb($breadcrumbLabel, $breadcrumbTitle);
-
-        $values = $this->_getSession()->getData('credit_form', true);
-        if ($values) {
-            $FromModel->addData($values);
-        }
-
-        $_SESSION['id'] = $FormId;
+        $_SESSION['id'] = $formId;
         $this->_view->renderLayout();
     }
 }

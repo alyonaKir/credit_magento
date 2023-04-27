@@ -53,17 +53,17 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
     }
 
 
-    public function getMessage()
+    public function getMessage(): MessageInterface
     {
         return $this->message;
     }
 
-    public function reset()
+    public function reset(): TransportBuilder
     {
         return parent::reset();
     }
 
-    public function sendEmail(int $applicationId, int $creditId)
+    public function sendEmail(int $applicationId, int $creditId): void
     {
         $credit = $this->creditFactory->create();
         $application = $this->applicationRepository->getById($applicationId);

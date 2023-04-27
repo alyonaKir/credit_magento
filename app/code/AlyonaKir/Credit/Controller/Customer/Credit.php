@@ -9,7 +9,6 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Credit implements ActionInterface
 {
-
     protected PageFactory $_pageFactory;
     protected $messageManager;
 

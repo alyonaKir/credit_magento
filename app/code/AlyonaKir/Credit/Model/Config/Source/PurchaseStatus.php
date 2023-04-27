@@ -1,10 +1,10 @@
 <?php
-
+declare(strict_types=1);
 namespace AlyonaKir\Credit\Model\Config\Source;
 use Magento\Framework\Option\ArrayInterface;
 class PurchaseStatus implements ArrayInterface
 {
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         $options = [
             0 => [

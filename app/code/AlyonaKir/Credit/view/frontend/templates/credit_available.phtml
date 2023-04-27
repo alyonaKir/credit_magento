@@ -1,6 +1,6 @@
 <?php /** @var Magento\Framework\View\Element\Template $block */ ?>
 <?php $status = $block->getStatus(); ?>
-<?php if ($status != -1): ?>
+<?php if ($status != null): ?>
     <h3>Your status is <?php echo $block->getStatusFromOptionsArray($status); ?></h3>
     <p><?php echo $block->statusDescribe($status);
     $item = $block->getAllCreditInfo();

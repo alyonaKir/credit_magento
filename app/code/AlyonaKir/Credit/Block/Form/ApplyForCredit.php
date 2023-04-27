@@ -33,7 +33,7 @@ class ApplyForCredit extends Template
         parent::__construct($context, $data);
     }
 
-    public function getStatus(): int
+    public function getStatus(): ?int
     {
         $userId = $_SESSION['customer_base']['customer_id'];
         $creditRepository = $this->creditRepositoryFactory->create();
@@ -45,7 +45,7 @@ class ApplyForCredit extends Template
             if( $application->getCustomerId() == $userId && $credit->getPurchaseStatus() != 4)
                 return (int)$credit->getPurchaseStatus();
         }
-        return -1;
+        return null;
     }
 
     public function getStatusFromOptionsArray(int $i): string
