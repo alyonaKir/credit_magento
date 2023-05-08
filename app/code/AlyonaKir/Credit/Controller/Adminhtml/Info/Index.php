@@ -22,7 +22,7 @@ class Index extends Action
     public function execute(): Page
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('AlyonaKir_Credit::module');
+        //$resultPage->setActiveMenu('AlyonaKir_Credit::module');
         $resultPage->getConfig()->getTitle()->prepend((__('Credit info')));
         $_SESSION['id'] = null;
         return $resultPage;

@@ -35,7 +35,8 @@ class Save extends Action
     public function execute()
     {
         $resultRedirect = $this->resultRedirectFactory->create();
-        $data = $this->getRequest()->getPostValue();
+        //$data = $this->getRequest()->getPostValue();
+        $data = $this->getRequest()->getParams();
         $id = "";
         try {
             $this->setData($data);

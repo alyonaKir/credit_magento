@@ -1,21 +1,24 @@
 <?php
 declare(strict_types=1);
+
 namespace AlyonaKir\Credit\Block\Adminhtml\Buttons;
+
+use Magento\Backend\Block\Widget\Context;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 
-class Save extends Generic implements ButtonProviderInterface
+class Save implements ButtonProviderInterface
 {
+    protected Context $context;
 
-    /**
-     * @return string
-     */
-    public function getSaveUrl():string
+    public function __construct(Context $context)
     {
-        $id = $this->getEntityId();
-        return $this->getUrl('*/*/save', ['id' => $id]);
+        $this->context = $context;
     }
-    public function getButtonData():array
+
+
+    public function getButtonData(): array
     {
         return [
             'label' => __('Save'),
@@ -27,4 +30,5 @@ class Save extends Generic implements ButtonProviderInterface
             'sort_order' => 90,
         ];
     }
+
 }

@@ -28,7 +28,7 @@ class Form implements ActionInterface
 
     private File $file;
     private DirectoryList $dir;
-    protected $messageManager;
+    protected ManagerInterface $messageManager;
 
     public function __construct(
         Context                      $context,

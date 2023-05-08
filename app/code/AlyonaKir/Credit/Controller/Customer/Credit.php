@@ -10,11 +10,10 @@ use Magento\Framework\View\Result\PageFactory;
 class Credit implements ActionInterface
 {
     protected PageFactory $_pageFactory;
-    protected $messageManager;
+    protected ManagerInterface $messageManager;
 
     public function __construct(
         PageFactory      $pageFactory,
-
         ManagerInterface $messageManager,
     )
     {
