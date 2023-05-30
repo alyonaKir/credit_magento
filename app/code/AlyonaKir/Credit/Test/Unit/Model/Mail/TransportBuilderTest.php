@@ -1,6 +1,6 @@
 <?php
 
-namespace AlyonaKir\Credit\Test\Unit\Mail;
+namespace AlyonaKir\Credit\Test\Unit\Model\Mail;
 
 use AlyonaKir\Credit\Model\Application\ApplicationRepository;
 use AlyonaKir\Credit\Model\Application\ApplicationRepositoryFactory;

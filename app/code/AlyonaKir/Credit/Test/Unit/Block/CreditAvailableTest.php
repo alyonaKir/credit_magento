@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+namespace AlyonaKir\Credit\Test\Unit\Block;
 
 use AlyonaKir\Credit\Block\CreditAvailable;
 use AlyonaKir\Credit\Model\Config\Source\PurchaseStatus;

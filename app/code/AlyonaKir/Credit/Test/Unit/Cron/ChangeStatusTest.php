@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /** @covers ChangeStatus */
-class TestChangeStatus extends TestCase
+class ChangeStatusTest extends TestCase
 {
     protected function setUp(): void
     {

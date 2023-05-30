@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AlyonaKir\Credit\Test\Unit\PaymentMethod;
+namespace AlyonaKir\Credit\Test\Unit\Model\PaymentMethod;
 
 use AlyonaKir\Credit\Model\Application\ApplicationRepositoryFactory;
 use AlyonaKir\Credit\Model\Application\ApplicationRepository;
